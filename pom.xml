@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.turo</groupId>
+    <artifactId>TuroTesting</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <dependencies>
+        <!--
+           Unit is an open source Unit Testing Framework for JAVA.
+           It is useful for Java Developers to write and run repeatable tests.
+           Erich Gamma and Kent Beck initially develop it. It is an instance of xUnit architecture.
+           As the name implies, it is used for Unit Testing of a small chunk of code.
+           Developers who are following test-driven methodology must write and execute unit test first before any code.
+           Once you are done with code, you should execute all tests, and it should pass.
+           Every time any code is added, you need to re-execute all test cases and makes sure nothing is broken.
+           -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!--
+            Bonigarcia : Automatic Selenium WebDriver binaries management in runtime for Java.
+            We use online WebDriver with this dependency. so that we don't need to add WebDriver on computer
+        -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
+
+        <!--
+        SLF4J allows the end-user to plug in the desired logging framework at deployment time.
+        Note that SLF4J-enabling your library/application implies the addition of only a single mandatory dependency.
+        -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--To avoid no-operation logger implementation error. we need below dep. -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--        Selenium automates browsers.-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <!--
+            Apache POI - Java API To Access Microsoft Format Files
+            We use apachi.poi dependency to read and write data on excel.
+        -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
+
+        <!--
+        Cucumber – a Behavior Driven Development (BDD) framework which is used with Selenium
+        for performing acceptance testing.
+            -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+
+        <!-- both up and down dependency should be the same version. -->
+
+        <!--
+            This class tells JUnit to invoke Cucumber JUnit runner.
+            Executing this class as any JUnit test class will run
+            all the Features found on the classpath in the same package as this class.
+        -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+
+
+        <!--
+            We all know Extent reports are the advanced Selenium Reporting Tool.
+            We can create beautiful, interactive and detailed reports using Extent framework.
+            We can add any information (such as events, screenshots, tags, devices, authors or any other relevant information)
+            which is important for us to create an informative and stunning report.
+        -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports-cucumber4-adapter</artifactId>
+            <version>1.0.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>4.0.9</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
+                    <parallel>methods</parallel>
+                    <threadCount>3</threadCount>
+                    <forkMode>perthread</forkMode>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>3.10.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>turo.com</projectName>
+                            <outputDirectory>${project.build.directory}/myReports</outputDirectory>
+                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
