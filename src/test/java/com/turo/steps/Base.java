@@ -56,8 +56,8 @@ public class Base {
     }
 
     protected void verifyTheText(String expected, String actual) {
-//        Assert.assertEquals(expected, actual);
-        boolean verifyReturn;
+        Assert.assertEquals(expected, actual);
+
         boolean verifyText = expected.equalsIgnoreCase(actual);
         if(verifyText){
             logger.info("{} text is displayed.",actual);

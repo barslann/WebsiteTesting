@@ -25,4 +25,8 @@ public class ConfigurationReader {
     public static String getProperty(String key) {
         return configFile.getProperty(key);
     }
+
+    public static void setProperty(String key, String value){
+        configFile.setProperty(key,value);
+    }
 }
